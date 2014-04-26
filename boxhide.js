@@ -1,20 +1,28 @@
 (function($) {
 	// Defined collections bound to 
-	var boundCollections = boundCollections || []
-	, activeCollections = activeCollections || []
-	, collectionIndex = collectionIndex || 0;
+	var boundCollections = boundCollections || {}
+	, activeCollections = activeCollections || {};
 
 	$.fn.boxhide = function(keyCodeSet, callback) {
-		for (boundCollectionIdx in boundCollections) {
-			if (boundCollections[boundCollectionIdx].keySet !== keyCodeSet)
+		if (undefined === boundCollections[this.selector + keyCodeSet])
+		{
+			boundCollections[this.selector + keyCodeSet] = {id: this.selector + keyCodeSet, keySet: keyCodeSet, callbackSet: [callback]};
+		}
+		else if (keyCodeSet.toString() === boundCollections[this.selector + keyCodeSet].keySet.toString())
+		{
+			for (var i = 0; i < boundCollections[this.selector + keyCodeSet].callbackSet.length; i++)
+			//if (!$.inArray(callback, boundCollections[this.selector + keyCodeSet].callbackSet))
 			{
-				collectionIndex++;
-				boundCollections[collectionIndex] = {id: collectionIndex, keySet: keyCodeSet, callback: callback};
+				if (callback.toString() !== boundCollections[this.selector + keyCodeSet].callbackSet[i].toString())
+				{
+					boundCollections[this.selector + keyCodeSet].callbackSet.push(callback);
+					break;
+				}
 			}
 		}
-
-		if (0 === Object.keys(boundCollections).length) {
-			boundCollections[collectionIndex] = {id: collectionIndex, keySet: keyCodeSet, callback: callback};
+		else
+		{
+			boundCollections[this.selector + keyCodeSet] = {id: this.selector + keyCodeSet, keySet: keyCodeSet, callbackSet: [callback]};
 		}
 
 		this.keydown(function(e) {
@@ -34,7 +42,10 @@
 						e.preventDefault();
 						if (firstCon)
 						{
-							boundCollections[idx].callback();
+							$.each(boundCollections[idx].callbackSet, function(callback)
+							{
+								boundCollections[idx].callbackSet[callback]();
+							});
 							activeCollections = [];
 							return;
 						}
