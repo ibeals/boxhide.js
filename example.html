@@ -4,16 +4,22 @@
 	</head>
 	<body>
 		<div id='sample'>
-			<input type='text' id='input_sample'>
+			<input type='text' id='input_sample'><input type='checkbox' id='box' />
 		</div>
 		<div id='rock_sold'></div>
 		<script type='text/javascript' src='http://code.jquery.com/jquery-1.11.0.min.js'></script>
 		<script type='text/javascript' src='boxhide.js'></script>
 		<script type='text/javascript'>
 			// 17 = Cntrl, 69 = e, 84 = t
-			$('#input_sample').boxhide([17, 69, 84], function() {alert('fired!');});
+			$("#input_sample").boxhide([17, 69, 84], function() { console.log('Event Fired!'); }); // Registered
+			// 17 = Cntrl, 69 = e, 81 = q
+			$("#input_sample").boxhide([17, 69, 81], function() { console.log('Event Fired!'); }); // Registered
+			// 17 = Cntrl, 69 = e, 81 = q
+			$("#input_sample").boxhide([17, 69, 81], function() { console.log('Event Fired!'); }); // Not registered: callback was already registered
+			// 17 = Cntrl, 69 = e, 81 = q
+			$("#input_sample").boxhide([17, 69, 81], function() { console.log('Different Event Fired!'); }); // Registered
 			// 17 = Cntrl, 81 = q
-			$('body').boxhide([17, 81], function() {$('#input_sample').remove();});
+			$("body").boxhide([17, 81], function() { $("#input_sample").remove(); $("#box").remove(); }); // Registered
 		</script>
 	</body>
 </html>
