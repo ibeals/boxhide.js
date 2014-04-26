@@ -34,7 +34,6 @@ SOFTWARE.
 		else if (keyCodeSet.toString() === boundCollections[this.selector + keyCodeSet].keySet.toString())
 		{
 			for (var i = 0; i < boundCollections[this.selector + keyCodeSet].callbackSet.length; i++)
-			//if (!$.inArray(callback, boundCollections[this.selector + keyCodeSet].callbackSet))
 			{
 				if (callback.toString() !== boundCollections[this.selector + keyCodeSet].callbackSet[i].toString())
 				{
