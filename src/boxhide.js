@@ -31,11 +31,11 @@ SOFTWARE.
 		{
 			boundCollections[this.selector + keyCodeSet] = {id: this.selector + keyCodeSet, keySet: keyCodeSet, callbackSet: [callback]};
 		}
-		else if (keyCodeSet.toString() === boundCollections[this.selector + keyCodeSet].keySet.toString())
+		else if (keyCodeSet.toString().replace(/[\s\t]+/g,'') === boundCollections[this.selector + keyCodeSet].keySet.toString().replace(/[\s\t]+/g,''))
 		{
 			for (var i = 0; i < boundCollections[this.selector + keyCodeSet].callbackSet.length; i++)
 			{
-				if (callback.toString() !== boundCollections[this.selector + keyCodeSet].callbackSet[i].toString())
+				if (callback.toString().replace(/[\s\t]+/g,'') !== boundCollections[this.selector + keyCodeSet].callbackSet[i].toString().replace(/[\s\t]+/g,''))
 				{
 					boundCollections[this.selector + keyCodeSet].callbackSet.push(callback);
 					break;
