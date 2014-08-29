@@ -43,7 +43,7 @@ Above there are two form elements. The first has an id of *input_sample* and the
 In order to register a series of key events with them, simply do the following:
 
 ```
-// 17 = Cntrl, 69 = e, 84 = t
+// 17 = Cntrl, 69 = e, 84 = t, 81 = q
 $("#input_sample").boxhide([17, 69, 84], function() { console.log('Event Fired!'); });
 $("#input_sample").boxhide([17, 69, 81], function() { $("#box").click(); });
 ```
